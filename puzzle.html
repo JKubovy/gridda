@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Gridda — Open puzzle</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="puzzle-redirect">
+  <main class="card">
+    <a class="brand-link" href="/"><img src="/assets/name.svg" alt="Gridda" class="wordmark wordmark--sm"></a>
+    <p id="status">Opening puzzle…</p>
+    <p id="fallback" hidden>
+      If nothing happens, <a id="play-link" href="https://play.google.com/store/apps/details?id=net.kubovy.gridda">install Gridda from Google Play</a>.
+    </p>
+  </main>
+  <script>
+    (function () {
+      var PLAY = "https://play.google.com/store/apps/details?id=net.kubovy.gridda";
+      var params = new URLSearchParams(location.search);
+      var v = params.get("v");
+      var data = params.get("data");
+      var ua = navigator.userAgent || "";
+      var isAndroid = /android/i.test(ua);
+
+      // No payload → user landed here directly. Send them to the homepage.
+      if (!data) {
+        document.getElementById("status").textContent =
+          "This page opens shared Gridda puzzles. Use a share link from the app.";
+        var fb = document.getElementById("fallback");
+        fb.hidden = false;
+        fb.firstElementChild.textContent = "Visit gridda.kubovy.net";
+        document.getElementById("play-link").href = "/";
+        return;
+      }
+
+      if (!isAndroid) {
+        location.replace(PLAY);
+        return;
+      }
+
+      // Build an Android intent URI. App Links should intercept the original
+      // https URL automatically when verified — this script is the fallback
+      // for browsers that didn't hand off (e.g. in-app webviews that disable
+      // App Links, or unverified installs).
+      var query = "v=" + encodeURIComponent(v || "1") + "&data=" + encodeURIComponent(data);
+      var intent = "intent://gridda.kubovy.net/puzzle?" + query +
+        "#Intent;scheme=https;package=net.kubovy.gridda;" +
+        "S.browser_fallback_url=" + encodeURIComponent(PLAY) + ";end";
+
+      // Show the fallback after 1.5s in case the intent doesn't resolve.
+      setTimeout(function () {
+        document.getElementById("fallback").hidden = false;
+      }, 1500);
+
+      location.replace(intent);
+    })();
+  </script>
+  <noscript>
+    <p>JavaScript is required. <a href="https://play.google.com/store/apps/details?id=net.kubovy.gridda">Open Gridda on Google Play</a>.</p>
+  </noscript>
+</body>
+</html>

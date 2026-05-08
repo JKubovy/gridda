@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Gridda — Nonogram puzles</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#FBF7EF">
+
+  <meta property="og:title" content="Gridda">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gridda.kubovy.net/">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="landing-minimal">
+  <main>
+    <img src="/assets/name.svg" alt="Gridda" class="wordmark">
+    <a class="play-badge" href="https://play.google.com/store/apps/details?id=net.kubovy.gridda" aria-label="Get it on Google Play">
+      <img src="/assets/google_play_badge.svg" alt="Get it on Google Play">
+    </a>
+  </main>
+
+  <footer>
+    <nav>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="mailto:gridda@kubovy.net">Contact</a>
+    </nav>
+    <p class="copyright">&copy; <span id="year"></span> Jan Kubovy</p>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
