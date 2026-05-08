@@ -163,7 +163,7 @@ footer nav {
   font-size: 1.25rem;
   margin: 2rem 0 0.5rem;
 }
-.prose strong {
+.prose > strong {
   display: block;
   font-weight: 700;
   color: var(--color-primary);
