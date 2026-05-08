@@ -18,12 +18,18 @@
   </main>
   <script>
     (function () {
-      var PLAY = "https://play.google.com/store/apps/details?id=net.kubovy.gridda";
+      var PLAY_WEB = "https://play.google.com/store/apps/details?id=net.kubovy.gridda";
+      var PLAY_INTENT = "intent://details?id=net.kubovy.gridda#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=" + encodeURIComponent(PLAY_WEB) + ";end";
       var params = new URLSearchParams(location.search);
       var v = params.get("v");
       var data = params.get("data");
       var ua = navigator.userAgent || "";
       var isAndroid = /android/i.test(ua);
+      var PLAY = isAndroid ? PLAY_INTENT : PLAY_WEB;
+
+      // Rewrite the visible fallback link so it also opens the Play Store app on Android.
+      var fallbackLink = document.getElementById("play-link");
+      if (fallbackLink && isAndroid) fallbackLink.href = PLAY_INTENT;
 
       // No payload → user landed here directly. Send them to the homepage.
       if (!data) {
@@ -32,7 +38,7 @@
         var fb = document.getElementById("fallback");
         fb.hidden = false;
         fb.firstElementChild.textContent = "Visit gridda.kubovy.net";
-        document.getElementById("play-link").href = "/";
+        if (fallbackLink) fallbackLink.href = "/";
         return;
       }
 

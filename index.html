@@ -16,7 +16,7 @@
 <body class="landing-minimal">
   <main>
     <img src="/assets/name.svg" alt="Gridda" class="wordmark">
-    <a class="play-badge" href="https://play.google.com/store/apps/details?id=net.kubovy.gridda" aria-label="Get it on Google Play">
+    <a class="play-badge" href="https://play.google.com/store/apps/details?id=net.kubovy.gridda" data-play-package="net.kubovy.gridda" aria-label="Get it on Google Play">
       <img src="/assets/google_play_badge.svg" alt="Get it on Google Play">
     </a>
   </main>
@@ -30,6 +30,22 @@
     <p class="copyright">&copy; <span id="year"></span> Jan Kubovy</p>
   </footer>
 
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // On Android, rewrite Play Store links to an Intent URI so the click
+    // hands off to the Play Store app instead of opening play.google.com
+    // in the browser. Non-Android UAs keep the plain web URL.
+    (function () {
+      if (!/android/i.test(navigator.userAgent)) return;
+      document.querySelectorAll("[data-play-package]").forEach(function (link) {
+        var pkg = link.getAttribute("data-play-package");
+        var web = "https://play.google.com/store/apps/details?id=" + encodeURIComponent(pkg);
+        link.href = "intent://details?id=" + encodeURIComponent(pkg) +
+          "#Intent;scheme=market;package=com.android.vending;" +
+          "S.browser_fallback_url=" + encodeURIComponent(web) + ";end";
+      });
+    })();
+  </script>
 </body>
 </html>
