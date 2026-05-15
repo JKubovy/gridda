@@ -15,7 +15,8 @@
       "namespace": "android_app",
       "package_name": "net.kubovy.gridda",
       "sha256_cert_fingerprints": [
-        "6A:73:52:6C:0E:26:61:66:81:95:56:08:8E:47:2E:1E:40:47:EC:72:8B:67:FB:3B:43:7D:0C:D1:1A:F1:50:7E"
+        "6A:73:52:6C:0E:26:61:66:81:95:56:08:8E:47:2E:1E:40:47:EC:72:8B:67:FB:3B:43:7D:0C:D1:1A:F1:50:7E",
+        "F2:2D:03:21:8C:BD:A3:67:C0:2C:C8:23:A3:ED:AB:74:56:5E:55:C8:1F:FD:8D:CB:7F:DF:D7:89:01:81:09:13"
       ]
     }
   }
